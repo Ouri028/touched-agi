@@ -21,7 +21,17 @@ yarn add touched-agi
 
 `````javascript
 
-import { Agi } from "touched-agi";
+
+
+import { 
+  Agi,
+  GetData,
+  StreamFile,
+  SayDigits,
+  Exec,
+  SetVariable,
+  GetVariable
+  } from "touched-agi";
 
 const agi = new Agi();
 
