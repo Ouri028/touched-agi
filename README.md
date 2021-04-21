@@ -21,16 +21,17 @@ yarn add touched-agi
 
 `````javascript
 
-import touched from "touched-agi";
+import { Agi } from "touched-agi";
 
-touched.agi.use(async (ctx: any) => {
-  await touched.StreamFile(ctx, 'beep');
-  const dtmf = await touched.GetData(ctx, "beep", 8000, 13);
-  await touced.SayDigits(ctx, dtmf);
+const agi = new Agi();
+
+agi.use(async (ctx: any) => {
+  await StreamFile(ctx, 'beep');
+  const dtmf = await GetData(ctx, "beep", 8000, 13);
+  await SayDigits(ctx, dtmf);
   await ctx.hangup();
 });
-
-touched.agi.listen(3000);
+agi.listen(3000);
 
 
 `````

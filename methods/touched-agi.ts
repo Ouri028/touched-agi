@@ -1,10 +1,4 @@
-import { Agi } from "../agi/lib/agi";
-
-class touched {
-
-    agi = new Agi();
-
-    GetData = async (ctx: any, file: string, waitTime: number, maxDigits: number) => {
+    const GetData = async (ctx: any, file: string, waitTime: number, maxDigits: number) => {
         var x = await ctx.getData(file, waitTime, maxDigits);
         if (x.result === "-1") {
             console.error("Asterisk Channel is unavailable. \n Ending the call.");
@@ -16,7 +10,7 @@ class touched {
         };
     }
 
-    StreamFile = async (ctx: any, file: string) => {
+    const StreamFile = async (ctx: any, file: string) => {
         var x = await ctx.streamFile(file);
         if (x.result.includes("-1")) {
             console.error("Asterisk Channel is unavailable. \n Ending the call.");
@@ -28,7 +22,7 @@ class touched {
         };
     }
 
-    SayDigits = async (ctx: any, digits: string) => {
+    const SayDigits = async (ctx: any, digits: string) => {
         var x = await ctx.sayDigits(digits);
         if (x.result.includes("-1")) {
             console.error("Asterisk Channel is unavailable. \n Ending the call.");
@@ -40,7 +34,7 @@ class touched {
         };
     }
 
-    Exec = async (ctx: any, command: string, ...options: string[]) => {
+    const Exec = async (ctx: any, command: string, ...options: string[]) => {
         var x = await ctx.exec(command, ...options);
         if (x.result.includes("-1")) {
             console.error("Asterisk Channel is unavailable. \n Ending the call.");
@@ -52,7 +46,7 @@ class touched {
         };
     }
 
-    GetVariable = async (ctx: any, name: string) => {
+    const GetVariable = async (ctx: any, name: string) => {
         var x = await ctx.getVariable(name);
         if (x.result.includes("-1")) {
             console.error("Asterisk Channel is unavailable. \n Ending the call.");
@@ -64,7 +58,7 @@ class touched {
         };
     }
 
-    SetVariable = async (ctx: any, name: string, value: string) => {
+    const SetVariable = async (ctx: any, name: string, value: string) => {
         var x = await ctx.setVariable(name, value);
         if (x.result.includes("-1")) {
             console.error("Asterisk Channel is unavailable. \n Ending the call.");
@@ -76,6 +70,11 @@ class touched {
         };
     }
 
-}
-
-export default touched;
+export { 
+    GetData,
+    StreamFile,
+    SayDigits,
+    Exec,
+    SetVariable,
+    GetVariable
+};
