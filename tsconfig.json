@@ -2,15 +2,22 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
-    "lib": ["es2017", "es7", "es6", ],
+    "lib": ["es2017", "es7", "es6","DOM" ],
     "declaration": true,
-    "outDir": "./lib",
+    "noEmit": false,
+    "outDir": "./dist",
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "allowJs": true,
+    "resolveJsonModule": true
   },
-  "include": ["agi"],
+  "include": [
+    "agi/**/**/**.ts",
+    "methods/**/**/**.ts",
+    "*"
+  ],
   "exclude": [
-    "node_modules",
-    "**/__tests__/*"
+    "node_modules"
   ]
 }

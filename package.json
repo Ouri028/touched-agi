@@ -4,7 +4,9 @@
   "description": "A fork and modified version of ts-agi which will see if the Asterisk channel is still open, or if the caller dropped the call. This will resolve Auto-Destruct issue on ts-agi.",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "ts-node ./index.ts",
+    "build": "yarn tsc",
+    "start": "node dist/index.js"
   },
   "keywords": [
     "asterisk",
