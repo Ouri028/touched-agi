@@ -23,25 +23,17 @@ yarn add touched-agi
 
 
 
-import { 
-  Agi,
-  GetData,
-  StreamFile,
-  SayDigits,
-  Exec,
-  SetVariable,
-  GetVariable
-  } from "touched-agi";
+import { Agi, GetData } from "touched-agi";
 
 const agi = new Agi();
 
 agi.use(async (ctx: any) => {
-  await StreamFile(ctx, 'beep');
-  const dtmf = await GetData(ctx, "beep", 8000, 13);
-  await SayDigits(ctx, dtmf);
-  await ctx.hangup();
+    await GetData(ctx, "beep", 13000, 13)
+})
+
+agi.listen(3000, () => {
+    console.log("Running on port 3000")
 });
-agi.listen(3000);
 
 
 `````
