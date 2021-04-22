@@ -49,9 +49,9 @@
         }
     }
 
-    const Exec = async (ctx: any, command: string, ...options: string[]) => {
+    const Exec = async (ctx: any, command: string, options: string[]) => {
         try{
-            var x = await ctx.exec(command, ...options);
+            var x = await ctx.exec(command, options);
             if (x.result.includes("-1")) {
                 console.error("Asterisk Channel is unavailable. \n Ending the call.");
                 return ctx.hangup().then(async () => await ctx.end());
