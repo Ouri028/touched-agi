@@ -48,3 +48,18 @@ exten = > 1000,1,AGI(agi://localhost:3000)
 ## Links
 
 [Asterisk AGI](https://wiki.asterisk.org/wiki/display/AST/Asterisk+17+AGI+Commands)
+
+
+
+***
+
+#### List of functions available:
+
+```
+GetData - Get caller DTMF
+StreamFile - Stream audio files from Asterisk
+SayDigits - Have Asterisk say the digits given
+Exec - Execute Asterisk commands such as Goto, Queue, etc
+SetVariable - Set Asterisk variables
+GetVariable - Receive Asterisk variables
+```
