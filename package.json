@@ -1,6 +1,6 @@
 {
   "name": "touched-agi",
-  "version": "0.0.2",
+  "version": "0.0.7",
   "description": "A fork and modified version of ts-agi which will see if the Asterisk channel is still open, or if the caller dropped the call. This will resolve Auto-Destruct issue on ts-agi.",
   "main": "dist/index.js",
   "scripts": {
@@ -26,9 +26,6 @@
     "typescript": "^4.2.4",
     "debug": "^4.1.1"
   },
-  "files": [
-    "lib/**/*"
-  ],
   "devDependencies": {
     "memorystream": "^0.3.1",
     "@types/memorystream": "^0.3.0",
