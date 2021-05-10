@@ -3,7 +3,7 @@
             var x = await ctx.getData(file, waitTime, maxDigits);
             if (x.result === "-1") {
                 console.error("Asterisk Channel is unavailable. \n Ending the call.");
-                return ctx.hangup().then(async () => await ctx.end());
+                return ctx.end().then(async () => await ctx.hangup());
             }
             return {
                 code: 200,
@@ -11,7 +11,7 @@
             };
         }catch (e) {
             console.error(e);
-            return ctx.hangup().then(async () => await ctx.end());
+                return ctx.end().then(async () => await ctx.hangup());
         }
     }
 
@@ -20,7 +20,7 @@
             var x = await ctx.streamFile(file);
             if (x.result.includes("-1")) {
                 console.error("Asterisk Channel is unavailable. \n Ending the call.");
-                return ctx.hangup().then(async () => await ctx.end());
+                    return ctx.end().then(async () => await ctx.hangup());
             }
             return {
                 code: 200,
@@ -28,7 +28,7 @@
             };
         }catch (e){
             console.error(e);
-            return ctx.hangup().then(async () => await ctx.end());
+                return ctx.end().then(async () => await ctx.hangup());
         }
     }
 
@@ -37,7 +37,7 @@
             var x = await ctx.sayDigits(digits);
             if (x.result.includes("-1")) {
                 console.error("Asterisk Channel is unavailable. \n Ending the call.");
-                return ctx.hangup().then(async () => await ctx.end());
+                    return ctx.end().then(async () => await ctx.hangup());
             }
             return {
                 code: 200,
@@ -45,7 +45,7 @@
             };
         }catch (e){
             console.error(e);
-            return ctx.hangup().then(async () => await ctx.end());
+                return ctx.end().then(async () => await ctx.hangup());
         }
     }
 
@@ -54,7 +54,7 @@
             var x = await ctx.exec(command, options);
             if (x.result.includes("-1")) {
                 console.error("Asterisk Channel is unavailable. \n Ending the call.");
-                return ctx.hangup().then(async () => await ctx.end());
+                    return ctx.end().then(async () => await ctx.hangup());
             }
             return {
                 code: 200,
@@ -62,7 +62,7 @@
             };
         }catch (e){
             console.error(e);
-            return ctx.hangup().then(async () => await ctx.end());
+                return ctx.end().then(async () => await ctx.hangup());
         }
     }
 
@@ -71,7 +71,7 @@
             var x = await ctx.getVariable(name);
             if (x.result.includes("-1")) {
                 console.error("Asterisk Channel is unavailable. \n Ending the call.");
-                return ctx.hangup().then(async () => await ctx.end());
+                    return ctx.end().then(async () => await ctx.hangup());
             }
             return {
                 code: 200,
@@ -79,7 +79,7 @@
             };
         }catch (e){
             console.error(e);
-            return ctx.hangup().then(async () => await ctx.end());
+                return ctx.end().then(async () => await ctx.hangup());
         }
     }
 
@@ -88,7 +88,7 @@
             var x = await ctx.setVariable(name, value);
             if (x.result.includes("-1")) {
                 console.error("Asterisk Channel is unavailable. \n Ending the call.");
-                return ctx.hangup().then(async () => await ctx.end());
+                    return ctx.end().then(async () => await ctx.hangup());
             }
             return {
                 code: 200,
@@ -96,7 +96,7 @@
             };
         }catch (e){
             console.error(e);
-            return ctx.hangup().then(async () => await ctx.end());
+                return ctx.end().then(async () => await ctx.hangup());
         }
     }
 
