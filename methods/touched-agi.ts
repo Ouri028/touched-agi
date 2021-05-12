@@ -100,11 +100,28 @@
         }
     }
 
+    const SetCallerIdName = async (ctx: any, calleridname: string) => {
+        try{
+            var x = await ctx.setcalleridname(calleridname);
+            if (x.result.includes("-1")) {
+                console.error("Asterisk Channel is unavailable. \n Ending the call.");
+                    return ctx.end().then(async () => await ctx.hangup());
+            }
+            return {
+                code: 200,
+                message: "success"
+            };
+        }catch (e){
+            console.error(e);
+                return ctx.end().then(async () => await ctx.hangup());
+        }
+    }
 export { 
     GetData,
     StreamFile,
     SayDigits,
     Exec,
     SetVariable,
-    GetVariable
+    GetVariable,
+    SetCallerIdName
 };
