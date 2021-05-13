@@ -101,11 +101,7 @@
     }
     const SetCallerIdName = async (ctx: any, calleridname: string) => {
         try{
-            var x = await Exec(ctx, "Set", [`CALLERID(name)=${calleridname}`]);
-            if (x.result.includes("-1")) {
-                console.error("Asterisk Channel is unavailable. \n Ending the call.");
-                    return ctx.end().then(async () => await ctx.hangup());
-            }
+            await Exec(ctx, "Set", [`CALLERID(name)=${calleridname}`]);
             return {
                 code: 200,
                 message: "success"
