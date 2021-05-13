@@ -4,7 +4,8 @@ import {
     SayDigits,
     Exec,
     SetVariable,
-    GetVariable
+    GetVariable,
+    SetCallerIdName
 } from "./methods/touched-agi";
 
 import { Agi } from "./agi/agi";
@@ -16,5 +17,6 @@ export {
     SayDigits,
     Exec,
     SetVariable,
-    GetVariable
+    GetVariable,
+    SetCallerIdName
 }

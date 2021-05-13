@@ -245,9 +245,6 @@ export class Context extends BaseContext {
   public setCallerID(callerrid: string) {
     return this.sendCommand(`SET CALLERID ${callerrid}`);
   }
-  public setCallerIdName(callerridname: string) {
-    return this.sendCommand(`SET CALLERIDNAME ${callerridname}`);
-  }
   public setContext(context: string) {
     return this.sendCommand(`SET CONTEXT ${context}`);
   }
