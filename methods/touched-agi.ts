@@ -5,10 +5,7 @@
                 console.error("Asterisk Channel is unavailable. \n Ending the call.");
                 return ctx.end().then(async () => await ctx.hangup());
             }
-            return {
-                code: 200,
-                message: x.result
-            };
+            return x.result;
         }catch (e) {
             console.error(e);
                 return ctx.end().then(async () => await ctx.hangup());
@@ -22,10 +19,7 @@
                 console.error("Asterisk Channel is unavailable. \n Ending the call.");
                     return ctx.end().then(async () => await ctx.hangup());
             }
-            return {
-                code: 200,
-                message: "success"
-            };
+            return "success";
         }catch (e){
             console.error(e);
                 return ctx.end().then(async () => await ctx.hangup());
@@ -39,10 +33,7 @@
                 console.error("Asterisk Channel is unavailable. \n Ending the call.");
                     return ctx.end().then(async () => await ctx.hangup());
             }
-            return {
-                code: 200,
-                message: "success"
-            };
+            return "success";
         }catch (e){
             console.error(e);
                 return ctx.end().then(async () => await ctx.hangup());
@@ -56,10 +47,7 @@
                 console.error("Asterisk Channel is unavailable. \n Ending the call.");
                     return ctx.end().then(async () => await ctx.hangup());
             }
-            return {
-                code: 200,
-                message: "success"
-            };
+            return "success";
         }catch (e){
             console.error(e);
                 return ctx.end().then(async () => await ctx.hangup());
@@ -73,10 +61,8 @@
                 console.error("Asterisk Channel is unavailable. \n Ending the call.");
                     return ctx.end().then(async () => await ctx.hangup());
             }
-            return {
-                code: 200,
-                message: x.value
-            };
+            return x.value;
+
         }catch (e){
             console.error(e);
                 return ctx.end().then(async () => await ctx.hangup());
@@ -90,10 +76,7 @@
                 console.error("Asterisk Channel is unavailable. \n Ending the call.");
                     return ctx.end().then(async () => await ctx.hangup());
             }
-            return {
-                code: 200,
-                message: "success"
-            };
+            return "success";
         }catch (e){
             console.error(e);
                 return ctx.end().then(async () => await ctx.hangup());
@@ -102,10 +85,7 @@
     const SetCallerIdName = async (ctx: any, calleridname: string) => {
         try{
             await Exec(ctx, "Set", [`CALLERID(name)=${calleridname}`]);
-            return {
-                code: 200,
-                message: "success"
-            };
+            return "success";
         }catch (e){
             console.error(e);
                 return ctx.end().then(async () => await ctx.hangup());
