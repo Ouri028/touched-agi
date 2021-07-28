@@ -1,0 +1,48 @@
+{
+  "name": "touched-agi",
+  "version": "0.0.10",
+  "description": "A fork and modified version of ts-agi which will see if the Asterisk channel is still open, or if the caller dropped the call. This will resolve Auto-Destruct issue on ts-agi.",
+  "main": "dist/agi.js",
+  "homepage": "https://github.com/Ouri028/touched-agi",
+  "bugs": {
+    "url" : "https://github.com/Ouri028/touched-agi/issues",
+    "email" : "sylvesterstephenson028@gmail.com"
+  },
+  "keywords": [
+    "asterisk",
+    "agi",
+    "typescript",
+    "fastagi"
+  ],
+  "types": "lib/agi.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "author": "Sylvester Stephenson",
+  "license": "ISC",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "jest --detectOpenHandles --config jestconfig.json ",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json"
+  },
+  "dependencies": {
+    "debug": "^4.1.1"
+  },
+  "devDependencies": {
+    "memorystream": "^0.3.1",
+    "@types/memorystream": "^0.3.0",
+    "@types/debug": "^4.1.5",
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.5",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2",
+    "ts-jest": "^24.1.0",
+    "tslint": "^5.20.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.6.3"
+  }
+}
