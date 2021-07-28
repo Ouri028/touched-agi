@@ -24,7 +24,7 @@ const agi = new Agi();
 
 agi.use(async (ctx: any) => {
     await ctx.getData("beep", 13000, 13);
-})
+});
 
 agi.listen(3000, () => {
     console.log("Running on port 3000");
