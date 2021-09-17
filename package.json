@@ -1,0 +1,14 @@
+{
+  "name": "touched-agi",
+  "version": "0.0.18",
+  "description": "Rewrite of touched-agi, but in JavaScript",
+  "main": "index.js",
+  "repository": "https://github.com/Ouri028/touched-agi.git",
+  "author": "Sylvester Stephenson",
+  "license": "ISC",
+  "private": true,
+  "devDependencies": {
+    "debug": "^4.3.2",
+    "memorystream": "0.3.1"
+  }
+}
