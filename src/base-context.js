@@ -37,6 +37,7 @@ class BaseContext extends EventEmitter {
       this.send(`${command}\n`, (err, result) => {
         if (err || result.result.includes("-1") || result.value.includes("-1")) {
           debug(error(err.message));
+          // this.end();
           reject(err);
         } else {
           debug(received(JSON.stringify(result)));
