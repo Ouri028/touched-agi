@@ -3,18 +3,18 @@ export type ComposedMiddleware<T> = (context: T, next?: () => Promise<any>) => P
 
 export function compose<T>(middlewares: Array<Middleware<T>>): ComposedMiddleware<T> {
   if (!Array.isArray(middlewares)) {
-    throw new TypeError('Middleware stack must be an array!');
+    throw new TypeError("Middleware stack must be an array!");
   }
   for (const fn of middlewares) {
-    if (typeof fn !== 'function') {
-      throw new TypeError('Middleware must be composed of functions!');
+    if (typeof fn !== "function") {
+      throw new TypeError("Middleware must be composed of functions!");
     }
   }
   return (context: T, next?: Middleware<T>): Promise<void> => {
     let index = -1;
     function dispatch(i: number): Promise<any> {
       if (i <= index) {
-        return Promise.reject(new Error('next() called multiple times'));
+        return Promise.reject(new Error("next() called multiple times"));
       }
       index = i;
       let fn: Middleware<T> | undefined = middlewares[i];

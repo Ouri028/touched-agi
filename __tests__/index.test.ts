@@ -127,17 +127,14 @@ describe('Context', () => {
         ctx
           .exec('test')
           .then(res => {
-            let x = JSON.parse(res);
-            console.log(res);
-            expect(x.result).toEqual('0');
+            expect(res.result).toEqual('0');
             process.nextTick(() => {
               ctx._stream.write('200 result=1\n');
             });
             return ctx.exec('test 2');
           })
           .then(res => {
-            let x = JSON.parse(res);
-            expect(x.result).toEqual('1');
+            expect(res.result).toEqual('1');
             done();
           });
       });

@@ -47,7 +47,15 @@ export class BaseContext extends EventEmitter{
           reject(err);
         } else {
           debug(received(JSON.stringify(result)));
-          resolve(result);
+          if (result.result.includes("-1") || result.value?.includes("-1")) {
+            this.end();
+            return JSON.stringify({
+              code: "-1",
+              message: "Asterisk return a -1, now closing channel.\n"
+            });
+          } else {
+            resolve(result);
+          }
         }
       });
     });

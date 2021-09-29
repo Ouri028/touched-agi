@@ -113,8 +113,8 @@ export interface IResponse {
  * 7 - Line is busy.
  * https://wiki.asterisk.org/wiki/display/AST/Asterisk+17+AGICommand_channel+status
  */
-export type ChanelStatus = '1' | '2' | '3' | '4' | '5' | '6' | '7';
+export type ChanelStatus = "1" | "2" | "3" | "4" | "5" | "6" | "7";
 
 export type Callback = (error: Error | null, arg1: IResponse) => void;
 
-export type phoneKeys = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 | '*' | '#';
+export type phoneKeys = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 | "*" | "#";

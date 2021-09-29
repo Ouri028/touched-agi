@@ -1,6 +1,6 @@
-import { Duplex } from 'stream';
-import { BaseContext } from './base-context';
-import { IResponse, phoneKeys } from './interfaces';
+import { Duplex } from "stream";
+import { BaseContext } from "./base-context";
+import { IResponse, phoneKeys } from "./interfaces";
 
 export class Context extends BaseContext {
   /**
@@ -12,17 +12,7 @@ export class Context extends BaseContext {
    * https://wiki.asterisk.org/wiki/display/AST/Asterisk+17+AGICommand_answer
    */
   public answer(): Promise<IResponse> | Promise<String> {
-    return this.sendCommand('ANSWER').then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand("ANSWER");
   }
 
   /**
@@ -32,17 +22,7 @@ export class Context extends BaseContext {
    * https://wiki.asterisk.org/wiki/display/AST/Asterisk+17+AGICommand_asyncagi+break
    */
   public asyncAGIBreak(): Promise<IResponse> | Promise<String> {
-    return this.sendCommand('ASYNCAGI BREAK').then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand("ASYNCAGI BREAK");
   }
 
   /**
@@ -66,24 +46,14 @@ export class Context extends BaseContext {
    * https://wiki.asterisk.org/wiki/display/AST/Asterisk+17+AGICommand_channel+status
    */
   public channelStatus(chanelname: string): Promise<IResponse> | Promise<String> {
-    return this.sendCommand(`CHANNEL STATUS ${chanelname}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`CHANNEL STATUS ${chanelname}`);
   }
 
   /**
    * Playback specified file with ability to be controlled by user
    *
    * filename -- filename to play (on the asterisk server)
-   *  (don't use file-type extension!)
+   *  (don"t use file-type extension!)
    *
    * escapeDigits -- if provided,
    *
@@ -100,8 +70,8 @@ export class Context extends BaseContext {
     filename: string,
     escapeDigits: phoneKeys[] = [1, 2, 3, 4, 5, 6, 7, 8, 0],
     skipMS: number = 3000,
-    ffChar: phoneKeys = '#',
-    rewChar: phoneKeys = '*',
+    ffChar: phoneKeys = "#",
+    rewChar: phoneKeys = "*",
     pauseChar?: phoneKeys,
     offsetms?: number,
   ): Promise<IResponse> | Promise<String> {
@@ -112,17 +82,7 @@ export class Context extends BaseContext {
     if (offsetms) {
       command += ` ${offsetms}`;
     }
-    return this.sendCommand(command).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(command);
   }
 
   /**
@@ -136,17 +96,7 @@ export class Context extends BaseContext {
    * https://wiki.asterisk.org/wiki/display/AST/Asterisk+17+AGICommand_database+del
    */
   public databaseDel(family: string, key: string) {
-    return this.sendCommand(`DATABASE DEL ${family} ${key}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`DATABASE DEL ${family} ${key}`);
   }
 
   /**
@@ -160,17 +110,7 @@ export class Context extends BaseContext {
    * https://wiki.asterisk.org/wiki/display/AST/Asterisk+17+AGICommand_database+deltree
    */
   public databaseDelTree(family: string, keyTree: string) {
-    return this.sendCommand(`DATABASE DELTREE ${family} ${keyTree}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`DATABASE DELTREE ${family} ${keyTree}`);
   }
 
   /**
@@ -184,17 +124,7 @@ export class Context extends BaseContext {
    * https://wiki.asterisk.org/wiki/display/AST/Asterisk+17+AGICommand_database+get
    */
   public databaseGet(family: string, key: string) {
-    return this.sendCommand(`DATABASE GET ${family} ${key}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`DATABASE GET ${family} ${key}`);
   }
 
   /**
@@ -208,17 +138,7 @@ export class Context extends BaseContext {
    * https://wiki.asterisk.org/wiki/display/AST/Asterisk+17+AGICommand_database+put
    */
   public databasePut(family: string, key: string, value: string) {
-    return this.sendCommand(`DATABASE PUT ${family} ${key} ${value}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`DATABASE PUT ${family} ${key} ${value}`);
   }
 
   /**
@@ -226,17 +146,7 @@ export class Context extends BaseContext {
    * Returns whatever the application returns, or -2 on failure to find application.
    */
   public exec(command: string, ...options: string[]) {
-    return this.sendCommand(`EXEC ${command} ${options}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`EXEC ${command} ${options}`);
   }
   /**
    * Prompts for DTMF on a channel
@@ -245,125 +155,35 @@ export class Context extends BaseContext {
    * https://wiki.asterisk.org/wiki/display/AST/Asterisk+17+AGICommand_get+data
    */
   public getData(file: string, timeout: number, maxDigits: number) {
-    return this.sendCommand(`GET DATA ${file} ${timeout} ${maxDigits}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`GET DATA ${file} ${timeout} ${maxDigits}`);
   }
-  public getFullVariable(name: string, channelName: string = '') {
-    return this.sendCommand(`GET FULL VARIABLE ${name} ${channelName}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+  public getFullVariable(name: string, channelName: string = "") {
+    return this.sendCommand(`GET FULL VARIABLE ${name} ${channelName}`);
   }
   public getOption(filename: string, escapeDigits: phoneKeys[] = [], timeout: number = 5000) {
-    return this.sendCommand(`GET OPTION ${filename} "${escapeDigits}" ${timeout}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`GET OPTION ${filename} "${escapeDigits}" ${timeout}`);
   }
   public getVariable(name: string) {
-    return this.sendCommand(`GET VARIABLE ${name}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`GET VARIABLE ${name}`);
   }
-  public goSub(context: string, extension: string, priority: string, optArg: string = '') {
-    return this.sendCommand(`GOSUB ${context} ${extension} ${priority} ${optArg}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+  public goSub(context: string, extension: string, priority: string, optArg: string = "") {
+    return this.sendCommand(`GOSUB ${context} ${extension} ${priority} ${optArg}`);
   }
   public hangup(chanelname?: string) {
-    return this.sendCommand(`HANGUP${chanelname ? ` ${chanelname}` : ''}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`HANGUP${chanelname ? ` ${chanelname}` : ""}`);
   }
   public noop() {
-    return this.sendCommand(`NOOP`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`NOOP`);
   }
   public receiveChar(timeout: number) {
-    return this.sendCommand(`RECEIVE CHAR ${timeout}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`RECEIVE CHAR ${timeout}`);
   }
   public receiveText(timeout: number) {
-    return this.sendCommand(`RECEIVE TEXT ${timeout}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`RECEIVE TEXT ${timeout}`);
   }
   public recordFile(
     file: string,
-    format: string = 'wav',
+    format: string = "wav",
     escapeDigits: phoneKeys[] = [],
     timeout: number = -1,
     offsetSamples: number = 0,
@@ -372,49 +192,19 @@ export class Context extends BaseContext {
   ) {
     let command = `RECORD FILE "${file}" ${format} "${escapeDigits}" ${timeout} ${offsetSamples}`;
     if (beep) {
-      command += ' 1';
+      command += " 1";
     }
     if (silence) {
       command += ` s=${silence}`;
     }
 
-    return this.sendCommand(command).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(command);
   }
   public sayAlpha(data: string, escapeDigits: phoneKeys[] = []) {
-    return this.sendCommand(`SAY ALPHA ${data} "${escapeDigits}"`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`SAY ALPHA ${data} "${escapeDigits}"`);
   }
   public sayDate(date: Date, escapeDigits: phoneKeys[] = []) {
-    return this.sendCommand(`SAY DATE ${(date.getTime() / 1000).toFixed()} "${escapeDigits}"`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`SAY DATE ${(date.getTime() / 1000).toFixed()} "${escapeDigits}"`);
   }
   public sayDateTime(date: Date, escapeDigits: phoneKeys[] = [], format?: string, timezone?: string) {
     let command = `SAY DATETIME ${(date.getTime() / 1000).toFixed()} "${escapeDigits}"`;
@@ -424,208 +214,58 @@ export class Context extends BaseContext {
     if (timezone) {
       command += ` ${timezone}`;
     }
-    return this.sendCommand(command).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(command);
   }
   public sayDigits(data: number, escapeDigits: phoneKeys[] = []) {
-    return this.sendCommand(`SAY DIGITS ${data} "${escapeDigits}"`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`SAY DIGITS ${data} "${escapeDigits}"`);
   }
   public sayNumber(data: number, escapeDigits: phoneKeys[] = [], gender?: string) {
     let command = `SAY NUMBER ${data} "${escapeDigits}"`;
     if (gender) {
       command += ` ${gender}`;
     }
-    return this.sendCommand(command).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(command);
   }
   public sayPhonetic(data: string, escapeDigits: phoneKeys[] = []) {
-    return this.sendCommand(`SAY PHONETIC "${data}" "${escapeDigits}"`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`SAY PHONETIC "${data}" "${escapeDigits}"`);
   }
   public sayTime(date: Date, escapeDigits: phoneKeys[] = []) {
-    return this.sendCommand(`SAY TIME ${(date.getTime() / 1000).toFixed()} "${escapeDigits}"`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`SAY TIME ${(date.getTime() / 1000).toFixed()} "${escapeDigits}"`);
   }
   public sendImage(name: string) {
-    return this.sendCommand(`SEND IMAGE ${name}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`SEND IMAGE ${name}`);
   }
   public sendText(text: string) {
-    return this.sendCommand(`SEND TEXT "${text}"`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`SEND TEXT "${text}"`);
   }
 
   public setAutoHangup(time: number) {
-    return this.sendCommand(`SET AUTOHANGUP ${time}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`SET AUTOHANGUP ${time}`);
   }
   public setCallerID(callerrid: string) {
-    return this.sendCommand(`SET CALLERID ${callerrid}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`SET CALLERID ${callerrid}`);
   }
   public setContext(context: string) {
-    return this.sendCommand(`SET CONTEXT ${context}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`SET CONTEXT ${context}`);
   }
   public setExtension(extension: string) {
-    return this.sendCommand(`SET EXTENSION ${extension}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`SET EXTENSION ${extension}`);
   }
-  public setMusic(mode: 'on' | 'off', className: string = 'default') {
-    return this.sendCommand(`SET MUSIC ${mode} ${className}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+  public setMusic(mode: "on" | "off", className: string = "default") {
+    return this.sendCommand(`SET MUSIC ${mode} ${className}`);
   }
   public setPriority(priority: string) {
-    return this.sendCommand(`SET PRIORITY ${priority}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`SET PRIORITY ${priority}`);
   }
   public setVariable(name: string, value: string) {
-    return this.sendCommand(`SET VARIABLE ${name} "${value}"`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`SET VARIABLE ${name} "${value}"`);
   }
   public streamFile(filename: string, escapeDigits: phoneKeys[] = [], offsetms?: number) {
     let command = `STREAM FILE "${filename}" "${escapeDigits}"`;
     if (offsetms) {
       command += ` ${offsetms}`;
     }
-    return this.sendCommand(command).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(command);
   }
 
   public verbose(message: string, level?: 1 | 2 | 3 | 4) {
@@ -633,35 +273,15 @@ export class Context extends BaseContext {
     if (level) {
       command += ` ${level}`;
     }
-    return this.sendCommand(command).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(command);
   }
 
   public waitForDigit(timeout: number = 10000) {
-    return this.sendCommand(`WAIT FOR DIGIT ${timeout}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
-    }).catch(e => {
-      this.end();
-      return `An Error Occurred: ${e}`;
-    });
+    return this.sendCommand(`WAIT FOR DIGIT ${timeout}`);
   }
 
   public dial(target: string, timeout: number, params: string) {
-    return this.exec('Dial', `${target},${timeout}`, params).catch(e => {
+    return this.exec("Dial", `${target},${timeout}`, params).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
     });
