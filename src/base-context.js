@@ -19,11 +19,11 @@ class BaseContext extends EventEmitter {
     });
     this.stream.on("error", (...args) => {
       console.log("error");
-      // this.emit("error", ...args)
+      this.emit("error", ...args)
     });
     this.stream.on("close", (...args) => {
       console.log("stream closed");
-      // this.emit("close", ...args)
+      this.emit("close", ...args)
     });
     this.IVariables = {};
     this.state = State.init;
@@ -39,8 +39,9 @@ class BaseContext extends EventEmitter {
   sendCommand(command) {
     return new Promise((resolve, reject) => {
       this.send(`${command}\n`, (err, result) => {
+        console.log(command, result);
         if (err || result.result.includes("-1") || result.value.includes("-1")) {
-          // this.end();
+          this.end();
           reject(err);
         } else {
           resolve(result);
