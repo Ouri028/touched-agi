@@ -1,6 +1,4 @@
-const { EventEmitter } = require("events");
-const { Duplex } = require("stream");
-const { debug } = require("debug");
+import { EventEmitter } from "events";
 // Enum for state management
 const State = Object.freeze({
   "init": 1,
@@ -14,11 +12,19 @@ const error = (data) => `!!!!! ${data}`;
 class BaseContext extends EventEmitter {
   constructor(stream) {
     super();
+    this.stream = stream;
     this.stream.on("data", data => {
+      console.log(data.toString());
       this.read(data.toString());
     });
-    this.stream.on("error", (...args) => this.emit("error", ...args));
-    this.stream.on("close", (...args) => this.emit("close", ...args));
+    this.stream.on("error", (...args) => {
+      console.log("error");
+      // this.emit("error", ...args)
+    });
+    this.stream.on("close", (...args) => {
+      console.log("stream closed");
+      // this.emit("close", ...args)
+    });
     this.IVariables = {};
     this.state = State.init;
     this.buffer = "";
@@ -27,20 +33,16 @@ class BaseContext extends EventEmitter {
 
   // Event listener
   on(event, listener) {
-    debug(`emitted: ${event}`);
     return super.on(event, listener);
   }
 
   sendCommand(command) {
-    debug(send(command));
     return new Promise((resolve, reject) => {
       this.send(`${command}\n`, (err, result) => {
         if (err || result.result.includes("-1") || result.value.includes("-1")) {
-          debug(error(err.message));
           // this.end();
           reject(err);
         } else {
-          debug(received(JSON.stringify(result)));
           resolve(result);
         }
       });
@@ -90,11 +92,10 @@ class BaseContext extends EventEmitter {
   }
 
   readVariables(data) {
-    debug(received(data));
     const dataArr = data.split("\n").slice(0, -2);
     dataArr.forEach(el => {
       const [name, value = ""] =el.split(":");
-      this.variables[name.splice(4)] = value.trim();
+      this.variables[name.slice(4)] = value.trim();
     });
     this.state = State.waiting;
     this.emit("variables", this.variables);
@@ -119,7 +120,7 @@ class BaseContext extends EventEmitter {
     const [, code, result, value] = parsed;
     const response = {
       code: parseInt(code, 10),
-      result: result.trim();
+      result: result.trim()
     };
     if(value) {
       response.value = value;
@@ -133,6 +134,6 @@ class BaseContext extends EventEmitter {
   }
 }
 
-module.exports = {
+export {
   BaseContext
 }

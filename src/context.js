@@ -1,5 +1,4 @@
-const { Duplex } = require("stream");
-const { BaseContext } = require("./base-context");
+import { BaseContext } from"./base-context.js";
 
 
 class Context extends BaseContext {
@@ -78,7 +77,7 @@ class Context extends BaseContext {
     if (offsetms) {
       command += ` ${offsetms}`;
     }
-    return this.sendCommand(command).
+    return this.sendCommand(command);
   }
 
   /**
@@ -194,7 +193,7 @@ class Context extends BaseContext {
     return this.sendCommand(`RECEIVE TEXT ${timeout}`);
   }
 
-  recordFile(file, format = "wav", escapeDigits = [], timeout = -1, offsetSample = 0, beep?, silence?) {
+  recordFile(file, format = "wav", escapeDigits = [], timeout = -1, offsetSample = 0, beep, silence) {
     let command = `RECORD FILE "${file}" ${format} "${escapeDigits}" ${timeout} ${offsetSamples}`;
     if (beep) {
       command += " 1";
@@ -210,7 +209,7 @@ class Context extends BaseContext {
     return this.sendCommand(`SAY DATE ${(date.getTime() / 1000).toFixed()} "${escapeDigits}"`);
   }
 
-  sayDateTime(date, escapeDigits = [], format?, timezone?) {
+  sayDateTime(date, escapeDigits = [], format, timezone) {
     let command = `SAY DATETIME ${(date.getTime() / 1000).toFixed()} "${escapeDigits}"`;
     if (format) {
       command += ` ${format}`;
@@ -225,7 +224,7 @@ class Context extends BaseContext {
     return this.sendCommand(`SAY DIGITS ${data} "${escapeDigits}"`);
   }
 
-  sayNumber(data, escapeDigits = [], gender?) {
+  sayNumber(data, escapeDigits = [], gender) {
     let command = `SAY NUMBER ${data} "${escapeDigits}"`;
     if (gender) {
       command += ` ${gender}`;
@@ -273,7 +272,7 @@ class Context extends BaseContext {
     return this.sendCommand(`SET VARIABLE ${name} "${value}"`);
   }
 
-  streamFile(filename, escapeDigits=[], offsetms?) {
+  streamFile(filename, escapeDigits=[], offsetms) {
     let command = `STREAM FILE "${filename}" "${escapeDigits}"`;
     if (offsetms) {
       command += ` ${offsetms}`;
@@ -281,7 +280,7 @@ class Context extends BaseContext {
     return this.sendCommand(command);
   }
 
-  verbose(message, level?) {
+  verbose(message, level) {
     let command = `VERBOSE "${message}"`;
     if (level) {
       command += ` ${level}`;
@@ -296,4 +295,7 @@ class Context extends BaseContext {
   dial(target, timeout, params) {
     return this.exec("Dial", `${target}, ${timeout}`, params);
   }
+}
+export {
+  Context
 }
