@@ -1,5 +1,5 @@
 import MemoryStream from 'memorystream';
-import {Server,  Socket } from 'net';
+import { Server, Socket } from 'net';
 import { Duplex } from 'stream';
 import { Agi } from '../agi/agi';
 import { State as state } from '../agi/base-context';
@@ -13,7 +13,7 @@ function writeVars<T extends Duplex>(stream: T) {
   stream.write('\n\n');
 }
 
-class TestContext extends Context{
+class TestContext extends Context {
   public sent: string[] = [];
   public pending: Callback | null = null;
   public send(msg: string, callback: Callback) {
@@ -295,7 +295,7 @@ describe('Context', () => {
 
   describe("stream file", () => {
     test("sends", () => {
-      ctx.streamFile("test", [1,2,3,4,5,6,7,8,9,0,"#","*"], 1000,);
+      ctx.streamFile("test", [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "#", "*"], 1000,);
       expect(ctx.sent.join("")).toEqual(
         'STREAM FILE "test" "1,2,3,4,5,6,7,8,9,0,#,*" 1000\n'
       );
@@ -335,7 +335,7 @@ describe('Context', () => {
   describe("say date", () => {
     test("say date", () => {
       const date = new Date();
-      ctx.sayDate(date, ["#"], );
+      ctx.sayDate(date, ["#"],);
       expect(ctx.sent.join("")).toEqual(
         `SAY DATE ${(date.getTime() / 1000).toFixed()} "#"\n`
       );
@@ -482,19 +482,19 @@ describe("agi#createServer", () => {
   test("invokes callback when a new connection is established", (done) => {
     const port = 3034;
     const agi = new Agi();
-    agi.use((ctx)=>{
+    agi.use((ctx) => {
       expect(ctx).toBeInstanceOf(Context);
       ctx.end();
       done();
     })
-    agi.listen(port,()=>{
+    agi.listen(port, () => {
       const client = new Socket();
-      client.connect({host: "localhost", port},()=>{
+      client.connect({ host: "localhost", port }, () => {
         writeVars(client)
         client.end();
       })
-      
+
     }).unref();
-    
+
   });
 });

@@ -14,13 +14,13 @@ const send = (data: string) => `---> ${data}`;
 const received = (data: string) => `<--- ${data}`;
 const error = (data: string) => `!!!!! ${data}`;
 
-export class BaseContext extends EventEmitter{
+export class BaseContext extends EventEmitter {
   public readonly variables: IVariables = {};
   protected state: State = State.init;
   protected buffer: string = '';
   protected pending: null | Callback = null;
 
-  constructor(protected stream: Duplex ) {
+  constructor(protected stream: Duplex) {
     super();
     this.stream.on('data', data => {
       this.read(data.toString());
@@ -31,7 +31,7 @@ export class BaseContext extends EventEmitter{
   public on(event: 'error', listener: (err: Error) => void): this;
   public on(event: 'response', listener: (variables: IResponse) => void): this;
   public on(event: 'variables', listener: (variables: IVariables) => void): this;
-  public on(event:  'hangup' | 'close' | 'response', listener: () => void): this;
+  public on(event: 'hangup' | 'close' | 'response', listener: () => void): this;
 
   public on(event: any, listener: (...args: any[]) => void): this {
     debug(`emitted: ${event}`)
@@ -42,8 +42,9 @@ export class BaseContext extends EventEmitter{
     debug(send(command));
     return new Promise((resolve, reject) => {
       this.send(`${command}\n`, (err, result) => {
-        if (err) {
-          debug(error(err.message));
+        if (err || result.toString().includes("-1") || result.value?.includes("-1")) {
+          debug(error(err?.message!));
+          this.end();
           reject(err);
         } else {
           debug(received(JSON.stringify(result)));
@@ -100,7 +101,7 @@ export class BaseContext extends EventEmitter{
     });
     this.state = State.waiting;
     this.emit('variables', this.variables);
-    
+
   }
 
   private readResponse(data: string): void {

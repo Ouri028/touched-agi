@@ -11,14 +11,9 @@ export class Context extends BaseContext {
    *  0 successful
    * https://wiki.asterisk.org/wiki/display/AST/Asterisk+17+AGICommand_answer
    */
-  public answer(): Promise<IResponse> | Promise<String> {
+  public answer(): Promise<IResponse> | Promise<string> {
     return this.sendCommand('ANSWER').then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -31,14 +26,9 @@ export class Context extends BaseContext {
    *
    * https://wiki.asterisk.org/wiki/display/AST/Asterisk+17+AGICommand_asyncagi+break
    */
-  public asyncAGIBreak(): Promise<IResponse> | Promise<String> {
+  public asyncAGIBreak(): Promise<IResponse> | Promise<string> {
     return this.sendCommand('ASYNCAGI BREAK').then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value })
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -65,14 +55,9 @@ export class Context extends BaseContext {
    * 7  Line is busy.
    * https://wiki.asterisk.org/wiki/display/AST/Asterisk+17+AGICommand_channel+status
    */
-  public channelStatus(chanelname: string): Promise<IResponse> | Promise<String> {
+  public channelStatus(chanelname: string): Promise<IResponse> | Promise<string> {
     return this.sendCommand(`CHANNEL STATUS ${chanelname}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -104,7 +89,7 @@ export class Context extends BaseContext {
     rewChar: phoneKeys = '*',
     pauseChar?: phoneKeys,
     offsetms?: number,
-  ): Promise<IResponse> | Promise<String> {
+  ): Promise<IResponse> | Promise<string> {
     let command = `CONTROL STREAM FILE ${filename}` + ` "${escapeDigits}" ${skipMS} ${ffChar} ${rewChar}`;
     if (pauseChar) {
       command += ` ${pauseChar}`;
@@ -113,12 +98,7 @@ export class Context extends BaseContext {
       command += ` ${offsetms}`;
     }
     return this.sendCommand(command).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -137,12 +117,7 @@ export class Context extends BaseContext {
    */
   public databaseDel(family: string, key: string) {
     return this.sendCommand(`DATABASE DEL ${family} ${key}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -161,12 +136,7 @@ export class Context extends BaseContext {
    */
   public databaseDelTree(family: string, keyTree: string) {
     return this.sendCommand(`DATABASE DELTREE ${family} ${keyTree}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -185,12 +155,7 @@ export class Context extends BaseContext {
    */
   public databaseGet(family: string, key: string) {
     return this.sendCommand(`DATABASE GET ${family} ${key}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -209,12 +174,7 @@ export class Context extends BaseContext {
    */
   public databasePut(family: string, key: string, value: string) {
     return this.sendCommand(`DATABASE PUT ${family} ${key} ${value}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -227,12 +187,7 @@ export class Context extends BaseContext {
    */
   public exec(command: string, ...options: string[]) {
     return this.sendCommand(`EXEC ${command} ${options}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -246,12 +201,7 @@ export class Context extends BaseContext {
    */
   public getData(file: string, timeout: number, maxDigits: number) {
     return this.sendCommand(`GET DATA ${file} ${timeout} ${maxDigits}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -259,12 +209,7 @@ export class Context extends BaseContext {
   }
   public getFullVariable(name: string, channelName: string = '') {
     return this.sendCommand(`GET FULL VARIABLE ${name} ${channelName}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -272,12 +217,7 @@ export class Context extends BaseContext {
   }
   public getOption(filename: string, escapeDigits: phoneKeys[] = [], timeout: number = 5000) {
     return this.sendCommand(`GET OPTION ${filename} "${escapeDigits}" ${timeout}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -285,12 +225,7 @@ export class Context extends BaseContext {
   }
   public getVariable(name: string) {
     return this.sendCommand(`GET VARIABLE ${name}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -298,12 +233,7 @@ export class Context extends BaseContext {
   }
   public goSub(context: string, extension: string, priority: string, optArg: string = '') {
     return this.sendCommand(`GOSUB ${context} ${extension} ${priority} ${optArg}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -311,12 +241,7 @@ export class Context extends BaseContext {
   }
   public hangup(chanelname?: string) {
     return this.sendCommand(`HANGUP${chanelname ? ` ${chanelname}` : ''}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -324,12 +249,7 @@ export class Context extends BaseContext {
   }
   public noop() {
     return this.sendCommand(`NOOP`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -337,12 +257,7 @@ export class Context extends BaseContext {
   }
   public receiveChar(timeout: number) {
     return this.sendCommand(`RECEIVE CHAR ${timeout}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -350,12 +265,7 @@ export class Context extends BaseContext {
   }
   public receiveText(timeout: number) {
     return this.sendCommand(`RECEIVE TEXT ${timeout}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -379,12 +289,7 @@ export class Context extends BaseContext {
     }
 
     return this.sendCommand(command).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -392,12 +297,7 @@ export class Context extends BaseContext {
   }
   public sayAlpha(data: string, escapeDigits: phoneKeys[] = []) {
     return this.sendCommand(`SAY ALPHA ${data} "${escapeDigits}"`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -405,12 +305,7 @@ export class Context extends BaseContext {
   }
   public sayDate(date: Date, escapeDigits: phoneKeys[] = []) {
     return this.sendCommand(`SAY DATE ${(date.getTime() / 1000).toFixed()} "${escapeDigits}"`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -425,12 +320,7 @@ export class Context extends BaseContext {
       command += ` ${timezone}`;
     }
     return this.sendCommand(command).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -438,12 +328,7 @@ export class Context extends BaseContext {
   }
   public sayDigits(data: number, escapeDigits: phoneKeys[] = []) {
     return this.sendCommand(`SAY DIGITS ${data} "${escapeDigits}"`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -455,12 +340,7 @@ export class Context extends BaseContext {
       command += ` ${gender}`;
     }
     return this.sendCommand(command).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -468,12 +348,7 @@ export class Context extends BaseContext {
   }
   public sayPhonetic(data: string, escapeDigits: phoneKeys[] = []) {
     return this.sendCommand(`SAY PHONETIC "${data}" "${escapeDigits}"`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -481,12 +356,7 @@ export class Context extends BaseContext {
   }
   public sayTime(date: Date, escapeDigits: phoneKeys[] = []) {
     return this.sendCommand(`SAY TIME ${(date.getTime() / 1000).toFixed()} "${escapeDigits}"`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -494,12 +364,7 @@ export class Context extends BaseContext {
   }
   public sendImage(name: string) {
     return this.sendCommand(`SEND IMAGE ${name}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -507,12 +372,7 @@ export class Context extends BaseContext {
   }
   public sendText(text: string) {
     return this.sendCommand(`SEND TEXT "${text}"`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -521,12 +381,7 @@ export class Context extends BaseContext {
 
   public setAutoHangup(time: number) {
     return this.sendCommand(`SET AUTOHANGUP ${time}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -534,12 +389,7 @@ export class Context extends BaseContext {
   }
   public setCallerID(callerrid: string) {
     return this.sendCommand(`SET CALLERID ${callerrid}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -547,12 +397,7 @@ export class Context extends BaseContext {
   }
   public setContext(context: string) {
     return this.sendCommand(`SET CONTEXT ${context}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -560,12 +405,7 @@ export class Context extends BaseContext {
   }
   public setExtension(extension: string) {
     return this.sendCommand(`SET EXTENSION ${extension}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -573,12 +413,7 @@ export class Context extends BaseContext {
   }
   public setMusic(mode: 'on' | 'off', className: string = 'default') {
     return this.sendCommand(`SET MUSIC ${mode} ${className}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -586,12 +421,7 @@ export class Context extends BaseContext {
   }
   public setPriority(priority: string) {
     return this.sendCommand(`SET PRIORITY ${priority}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -599,12 +429,7 @@ export class Context extends BaseContext {
   }
   public setVariable(name: string, value: string) {
     return this.sendCommand(`SET VARIABLE ${name} "${value}"`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -616,12 +441,7 @@ export class Context extends BaseContext {
       command += ` ${offsetms}`;
     }
     return this.sendCommand(command).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -634,12 +454,7 @@ export class Context extends BaseContext {
       command += ` ${level}`;
     }
     return this.sendCommand(command).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
@@ -648,12 +463,7 @@ export class Context extends BaseContext {
 
   public waitForDigit(timeout: number = 10000) {
     return this.sendCommand(`WAIT FOR DIGIT ${timeout}`).then(x => {
-      if(x.result.includes("-1") || x.value?.includes("-1")) {
-        this.end();
-        return "Received a -1 response from Asterisk, now closing channel.";
-      } else {
-        return JSON.stringify({result: x.result, value: x.value})
-      }
+      return JSON.stringify({ result: x.result, value: x.value });
     }).catch(e => {
       this.end();
       return `An Error Occurred: ${e}`;
